@@ -4,6 +4,7 @@ import Icon from './Icon';
 import List, { IListElement, IListElementTypes } from './List';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { CompanyDescriptor, selectCompany, toggleMenu } from '../store';
+import { onKeySelect } from '../utils';
 
 const UserSettingsContainer = styled.div`
   display: flex;
@@ -64,7 +65,13 @@ const UserSettings = (props: IUserSettings) => {
 
   const dispatch = useAppDispatch();
 
-  const dispatchToggleMenu = () => dispatch(toggleMenu());
+  const dispatchToggleMenu = (e?: React.MouseEvent) => {
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    dispatch(toggleMenu());
+  };
 
   const list: Array<IListElement | IListElementTypes> = [
     {
@@ -114,7 +121,11 @@ const UserSettings = (props: IUserSettings) => {
 
   return (
     <UserSettingsContainer>
-      <UserInfoContainer onClick={dispatchToggleMenu} onKeyPress={dispatchToggleMenu} tabIndex={0}>
+      <UserInfoContainer
+        onPointerDown={dispatchToggleMenu}
+        onKeyPress={onKeySelect(dispatchToggleMenu)}
+        tabIndex={0}
+      >
         <NameCompanyContainer>
           <Name>{name}</Name>
           <Company>{company}</Company>
@@ -124,7 +135,7 @@ const UserSettings = (props: IUserSettings) => {
         </IconContainer>
       </UserInfoContainer>
       <ListContainer>
-        <List list={list} open={isMenuOpened} onSelfClose={dispatchToggleMenu}/>
+        <List open={isMenuOpened} list={list} onSelfClose={dispatchToggleMenu} />
       </ListContainer>
     </UserSettingsContainer>
   );

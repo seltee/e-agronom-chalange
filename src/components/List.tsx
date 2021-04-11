@@ -126,7 +126,7 @@ export interface IListElement {
   isSelected?: boolean;
   icon?: string;
   color?: string;
-  onClick?: () => any;
+  onClick?: (e?: React.MouseEvent) => any;
 }
 
 interface IList {
@@ -139,7 +139,9 @@ const List = (props: IList) => {
   const { open = true, list = [], onSelfClose } = props;
 
   const listReference = useRef<HTMLDivElement>(null);
-  useOutsideClick(open ? listReference : undefined, onSelfClose);
+  useOutsideClick(listReference, () => {
+    if (onSelfClose && open) onSelfClose();
+  });
 
   if (open) {
     return (
