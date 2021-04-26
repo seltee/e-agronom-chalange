@@ -24,7 +24,7 @@ const UserInfoContainer = styled.div`
 const NameCompanyContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: flex-end;
   height: 40px;
 `;
@@ -32,6 +32,7 @@ const NameCompanyContainer = styled.div`
 const Name = styled.div`
   font-size: 14px;
   font-weight: 700;
+  padding-bottom: 2px;
 `;
 
 const Company = styled.div`
@@ -41,7 +42,7 @@ const Company = styled.div`
 `;
 
 const IconContainer = styled.div`
-  font-size: 28px;
+  font-size: 24px;
   padding-left: 12px;
 `;
 
@@ -131,7 +132,7 @@ const UserSettings = (props: IUserSettings) => {
           <Company>{company}</Company>
         </NameCompanyContainer>
         <IconContainer>
-          <Icon code="settings" />
+          <Icon code="settings" outlined={true} />
         </IconContainer>
       </UserInfoContainer>
       <ListContainer>

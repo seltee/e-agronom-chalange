@@ -13,6 +13,7 @@ const ListContainer = styled.div`
   border-radius: 8px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 `;
 
 const Title = styled.div`
